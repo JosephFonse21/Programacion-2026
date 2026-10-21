@@ -10,8 +10,8 @@ puntajes = [72, 85, 90]
 indice = 0
 
 while indice < len(puntajes):
+    puntajes[indice] = puntajes[indice] / 100
     # TODO: actualice el puntaje de esta posición dividiéndolo entre 100.
-    pass
 
     indice += 1
 
