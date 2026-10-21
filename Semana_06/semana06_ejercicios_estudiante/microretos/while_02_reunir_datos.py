@@ -12,8 +12,8 @@ entrada = input("Resultado (o fin para terminar): ").strip().lower()
 
 while entrada != "fin":
     resultado = int(entrada)
+    resultados.append(resultado)
     # TODO: agregue el resultado a la lista.
-    pass
 
     entrada = input("Resultado (o fin para terminar): ").strip().lower()
 
