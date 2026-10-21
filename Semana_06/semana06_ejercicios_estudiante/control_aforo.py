@@ -108,20 +108,52 @@ aceptados = []
 rechazados = []
 aforo = 0
 capacidad_maxima = 700
-entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos').strip().lower()
+espacios_disponibles = 0
+suma = 0
+
+entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos: ').strip().lower()
 
 while entrada != "fin":
-    grupo = int(entrada)
-    if grupo + aforo > capacidad_maxima:
-        print('Rechazado')
-        rechazados.append(grupo)
-    elif grupo + aforo <= capacidad_maxima:
-        print('Aceptado')
-        aceptados.append(grupo)
-    entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos').strip().lower
-    
-print('cantidad aceptados: ',aceptados)
-print('cantidad rechazados: ',rechazados)
+    try:
+        grupo = int(entrada)
+        
+        if grupo <= 0:
+            print('Error: La cantidad de personas debe ser un número mayor a 0.\n')
+            entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos:\n').strip().lower()
+            continue 
+        
+      
+        if grupo + aforo > capacidad_maxima:
+            print('Grupo rechazado: no hay espacio para', grupo, 'personas')
+            rechazados.append(grupo)
+            print('Ocupacion actual: ', aforo)
+            print('espacios disponibles: ', capacidad_maxima - aforo, '\n')
+            
+        elif grupo + aforo <= capacidad_maxima:
+            print('Grupo aceptado: ingresan: ', grupo, 'personas')
+            aceptados.append(grupo)
+            aforo += grupo
+            print('Ocupacion actual: ', aforo)
+            espacios_disponibles = capacidad_maxima - aforo
+            print('espacios disponibles: ', espacios_disponibles, '\n')
+            
+    except ValueError:
+      
+        print('Error: Entrada no válida. Debe digitar un número entero o la palabra "fin".\n')
+
+    entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos:\n').strip().lower()
+
+
+for i in aceptados:
+    suma += i
+
+print('Cantidad de gurpos aceptados: ',len(aceptados))
+print('Cantidad de gurpos rechazados: ',len(rechazados))
+print('cantidad de personas aceptadas: ', (suma))
+print('Capacidad maxima: ', capacidad_maxima)
+print('Espacios disponibles', espacios_disponibles)
+print('Grupo aceptado mas pequeño:', min(aceptados))
+print('Grupo aceptado mas grande:', max(aceptados))
     
 
 
