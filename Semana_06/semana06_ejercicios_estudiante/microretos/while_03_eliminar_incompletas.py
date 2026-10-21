@@ -10,8 +10,8 @@ respuestas = ["Bueno", "Sin respuesta", "Excelente", "Sin respuesta", "Regular"]
 cantidad_incompletas = respuestas.count("Sin respuesta")
 
 while "Sin respuesta" in respuestas:
-    # TODO: elimine una respuesta "Sin respuesta" de la lista.
-    pass
+    respuestas.remove('Sin respuesta')# TODO: elimine una respuesta "Sin respuesta" de la lista.
+
 
 print("Respuestas para analizar:", respuestas)
 print("Respuestas incompletas eliminadas:", cantidad_incompletas)
