@@ -6,10 +6,12 @@ universitario de UMCA.
 Prediga el resultado, complete el ciclo y compruebe su respuesta.
 """
 
-minutos_estudio = [60, 120, 90]
+minutos_estudio = [60, 120, 90,180]
 horas_estudio = []
 
 for minutos in minutos_estudio:
+    horas = minutos / 60
+    horas_estudio.append(horas)
     # TODO: convierta los minutos a horas y agregue el resultado a la lista.
     pass
 
