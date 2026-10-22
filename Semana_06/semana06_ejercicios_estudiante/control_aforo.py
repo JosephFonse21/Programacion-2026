@@ -110,9 +110,11 @@ aforo = 0
 capacidad_maxima = 700
 espacios_disponibles = 0
 suma = 0
+porcentaje_ocupacion = 0
+estado_recinto = ' '
 
 entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos: ').strip().lower()
-
+    
 while entrada != "fin":
     try:
         grupo = int(entrada)
@@ -143,17 +145,33 @@ while entrada != "fin":
 
     entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos:\n').strip().lower()
 
-
+#Suma la cantidad de grupos aceptados
 for i in aceptados:
     suma += i
 
-print('Cantidad de gurpos aceptados: ',len(aceptados))
+porcentaje_ocupacion = abs(suma * 100/ capacidad_maxima)
+
+if porcentaje_ocupacion == 100:
+    estado_recinto = 'Recinto totalmente lleno'
+elif porcentaje_ocupacion >= 50 and porcentaje_ocupacion <= 99:
+    estado_recinto = 'Recinto casi lleno'
+elif porcentaje_ocupacion >= 25 and porcentaje_ocupacion < 50:
+    estado_recinto = 'Recinto medio lleno'
+elif porcentaje_ocupacion > 0 and porcentaje_ocupacion < 25:
+    estado_recinto = 'Recinto no muy lleno'
+else:
+    estado_recinto = 'Recinto vacio'
+    
+print('-'*8,'REPORTE FINAL','-'*8)
+
+print('Cantidad de grupos aceptados: ',len(aceptados))
 print('Cantidad de gurpos rechazados: ',len(rechazados))
 print('cantidad de personas aceptadas: ', (suma))
 print('Capacidad maxima: ', capacidad_maxima)
 print('Espacios disponibles', espacios_disponibles)
-print('Grupo aceptado mas pequeño:', min(aceptados))
-print('Grupo aceptado mas grande:', max(aceptados))
-    
+print('Grupo aceptado mas pequeño:', min(aceptados, default=0))
+print('Grupo aceptado mas grande:', max(aceptados, default=0))
+print(f'Porcentaje ocupacion: {porcentaje_ocupacion:.0f}%')
+print('Estado final: ', estado_recinto)
 
 
