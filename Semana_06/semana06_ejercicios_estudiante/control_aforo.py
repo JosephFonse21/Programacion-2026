@@ -113,7 +113,7 @@ suma = 0
 porcentaje_ocupacion = 0
 estado_recinto = ' '
 
-entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos: ').strip().lower()
+entrada = input('Digite la cantidad de grupos o "fin" para detener de admitir grupos: ').strip().lower()
     
 while entrada != "fin":
     try:
@@ -121,21 +121,21 @@ while entrada != "fin":
         
         if grupo <= 0:
             print('Error: La cantidad de personas debe ser un número mayor a 0.\n')
-            entrada = input('Digite la cantidad de grupos o fin para detener de admitir grupos:\n').strip().lower()
+            entrada = input('Digite la cantidad de grupos o "fin" para detener de admitir grupos:\n').strip().lower()
             continue 
         
       
         if grupo + aforo > capacidad_maxima:
             print('Grupo rechazado: no hay espacio para', grupo, 'personas')
             rechazados.append(grupo)
-            print('Ocupacion actual: ', aforo)
+            print('Ocupación actual: ', aforo)
             print('espacios disponibles: ', capacidad_maxima - aforo, '\n')
             
         elif grupo + aforo <= capacidad_maxima:
             print('Grupo aceptado: ingresan: ', grupo, 'personas')
             aceptados.append(grupo)
             aforo += grupo
-            print('Ocupacion actual: ', aforo)
+            print('Ocupación actual: ', aforo)
             espacios_disponibles = capacidad_maxima - aforo
             print('espacios disponibles: ', espacios_disponibles, '\n')
             
@@ -165,13 +165,13 @@ else:
 print('-'*8,'REPORTE FINAL','-'*8)
 
 print('Cantidad de grupos aceptados: ',len(aceptados))
-print('Cantidad de gurpos rechazados: ',len(rechazados))
+print('Cantidad de grupos rechazados: ',len(rechazados))
 print('cantidad de personas aceptadas: ', (suma))
-print('Capacidad maxima: ', capacidad_maxima)
+print('Capacidad máxima: ', capacidad_maxima)
 print('Espacios disponibles', espacios_disponibles)
-print('Grupo aceptado mas pequeño:', min(aceptados, default=0))
-print('Grupo aceptado mas grande:', max(aceptados, default=0))
-print(f'Porcentaje ocupacion: {porcentaje_ocupacion:.0f}%')
+print('Grupo aceptado más pequeño:', min(aceptados, default=0))
+print('Grupo aceptado más grande:', max(aceptados, default=0))
+print(f'Porcentaje ocupación: {porcentaje_ocupación:.0f}%')
 print('Estado final: ', estado_recinto)
 
 
