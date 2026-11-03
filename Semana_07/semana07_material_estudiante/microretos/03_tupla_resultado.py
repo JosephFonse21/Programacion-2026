@@ -12,7 +12,8 @@ print("Total original:", par_original[1])
 # Se corrigió el total de Soda San Pedro a 470000.
 # TODO: reemplace la línea provisional por una TUPLA NUEVA con nombre y total.
 # No use par_original[1] = 470000: eso intenta modificar una tupla.
-par_corregido = par_original
+
+par_corregido = (par_original[0], 47000)
 print("Total original después:", par_original[1])
 print("Total del nuevo par:", par_corregido[1])
 
