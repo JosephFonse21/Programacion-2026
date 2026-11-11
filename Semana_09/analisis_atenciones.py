@@ -7,7 +7,7 @@ y luego a 3 conforme verifique cada parte con python analisis_atenciones.py.
 from lector_csv import cargar_atenciones
 
 
-ETAPA = 1
+ETAPA = 2
 
 
 def explorar_atenciones(atenciones):
@@ -16,9 +16,19 @@ def explorar_atenciones(atenciones):
     print("P1. Archivo leído correctamente.")
 
     # P2. Cuente las filas con un ciclo. Compruebe que obtuvo 12.
+    contador = 0
+    for atencion in atenciones:
+        contador += 1
+    print(contador)
 
     # P3. Ejemplo listo para ejecutar. Explique qué tipos y campos observa.
     primer_registro = atenciones[0]
+
+    print("Primer registro:", primer_registro)
+    print("Tipo de registro:", type(primer_registro))
+    print("Campos:", primer_registro.keys())
+
+   
 
 
 def contar_y_limpiar(atenciones):
@@ -26,12 +36,46 @@ def contar_y_limpiar(atenciones):
     print("Etapa 2. Complete y compruebe las preguntas 4 a 8.")
     # P4. Cuente los medicamentos tal como aparecen en el CSV con .get().
     # Muestre el contador y su total.
+    contador_medicamentos = {}
+    contador_texto_normal = 0
+
+    for atencion in atenciones:
+        medicamento = atencion.get("medicamento", "")
+        contador_medicamentos[medicamento] = contador_medicamentos.get(medicamento, 0) + 1
+        contador_texto_normal += 1
+
+    print("Conteo de medicamentos: ", contador_medicamentos)
+    print("Total de medicamentos:",  contador_texto_normal)
 
     # P5. Muestre ejemplos de espacios o mayúsculas en hospital,
     # diagnostico y medicamento.
+    for atencion in atenciones:
+        hospital = atencion.get("hospital", "")
+        diagnostico = atencion.get("diagnostico", "")
+        medicamento = atencion.get("medicamento", "")
+        if hospital != hospital.strip() or hospital != hospital.lower():
+            print("Ejemplo hospital:", hospital)
+            break
+        if diagnostico != diagnostico.strip() or diagnostico != diagnostico.lower():
+            print("Ejemplo diagnostico:", diagnostico)
+            break
+        if medicamento != medicamento.strip() or medicamento != medicamento.lower():
+            print("Ejemplo medicamento:", medicamento)
+            break
 
     # P6. Cuente los medicamentos con strip() y lower(). Muestre el
     # contador limpio y su total. Compare con P4.
+    medicamentos_corregidos = {}
+    contador_texto_limpio = 0
+    for atencion in atenciones:
+        medicamento = atencion.get("medicamento", "")
+        medicamento_arreglado = medicamento.strip().lower()
+        medicamentos_corregidos[medicamento_arreglado] = medicamentos_corregidos.get(medicamento_arreglado, 0) + 1
+        contador_texto_limpio += 1
+
+    print("Conteo de medicamentos limpios:", medicamentos_corregidos)
+    print("Total de medicamentos limpios:", contador_texto_limpio)
+    print("Comparación P4 vs P6:", contador_texto_normal, "->",  contador_texto_limpio)
 
     # P7. Agrupe los nombres limpios con las equivalencias de la guía.
     # Complete el diccionario. La clave es la variante y el valor es
@@ -53,7 +97,12 @@ def concluir(atenciones):
     # Redacte un hallazgo que use el promedio y un conteo.
 
 
+
+
+
+
 atenciones = cargar_atenciones()
+#print(atenciones)
 if not atenciones:
     print("Revise los TODO de lector_csv.py antes de continuar.")
 elif ETAPA == 1:
@@ -64,3 +113,4 @@ elif ETAPA == 3:
     concluir(atenciones)
 else:
     print("Seleccione 1, 2 o 3 en ETAPA.")
+
