@@ -7,7 +7,7 @@ y luego a 3 conforme verifique cada parte con python analisis_atenciones.py.
 from lector_csv import cargar_atenciones
 
 
-ETAPA = 2
+ETAPA =  int(input("ingrese la etapa que quieres ver: "))
 
 
 def explorar_atenciones(atenciones):
@@ -65,26 +65,57 @@ def contar_y_limpiar(atenciones):
 
     # P6. Cuente los medicamentos con strip() y lower(). Muestre el
     # contador limpio y su total. Compare con P4.
+   
+       
+
+
+    # P7. Agrupe los nombres limpios con las equivalencias de la guía.
+    # Complete el diccionario. La clave es la variante y el valor es
+    # el nombre que conservará. El nuevo contador debe sumar 12.
+
     medicamentos_corregidos = {}
     contador_texto_limpio = 0
+    
+    EQUIVALENCIAS = {
+        "acetaminofen": "acetaminofén",
+        "paracetamol":  "acetaminofén",
+        "panadol": "acetaminofén",
+        "losartan" : "losartán",
+        "nitrofurantoína" : "nitrofurantoína"
+    }
     for atencion in atenciones:
         medicamento = atencion.get("medicamento", "")
         medicamento_arreglado = medicamento.strip().lower()
+        medicamento_arreglado = EQUIVALENCIAS.get(medicamento_arreglado, medicamento_arreglado)
         medicamentos_corregidos[medicamento_arreglado] = medicamentos_corregidos.get(medicamento_arreglado, 0) + 1
         contador_texto_limpio += 1
 
     print("Conteo de medicamentos limpios:", medicamentos_corregidos)
     print("Total de medicamentos limpios:", contador_texto_limpio)
     print("Comparación P4 vs P6:", contador_texto_normal, "->",  contador_texto_limpio)
-
-    # P7. Agrupe los nombres limpios con las equivalencias de la guía.
-    # Complete el diccionario. La clave es la variante y el valor es
-    # el nombre que conservará. El nuevo contador debe sumar 12.
-    equivalencias = {}
+    
 
     # P8. Cuente hospitales y diagnósticos con los nombres limpios.
     # Muestre ambos contadores, sus totales y la categoría más frecuente de
     # cada campo.
+    contador_hospitales = {}
+    contador_diagnosticos = {}
+    total_hospitales = 0
+    total_diagnosticos = 0
+    for atencion in atenciones:
+        hospital = atencion.get("hospital", "").strip().lower()
+        diagnostico = atencion.get("diagnostico", "").strip().lower()
+        contador_hospitales[hospital] = contador_hospitales.get(hospital, 0) + 1
+        contador_diagnosticos[diagnostico] = contador_diagnosticos.get(diagnostico, 0) + 1
+        total_hospitales += 1
+        total_diagnosticos += 1
+
+    print("Hospitales con nombre limpio: ", contador_hospitales)
+    print("El total de hospitales son: ",total_hospitales)
+    print("Diagnosticos con nombre limpio",contador_diagnosticos)
+    print("El total de diagnosticos son: ",total_diagnosticos)
+    print("El hospital más visitado es: ", max(contador_hospitales))
+    print("El diagnostico más frecuente es : ", max(contador_diagnosticos))
 
 
 def concluir(atenciones):
@@ -92,9 +123,32 @@ def concluir(atenciones):
     print("Etapa 3. Complete y compruebe las preguntas 9 y 10.")
     # P9. Cuente por cédula. Muestre cuántas personas hay, cuáles cédulas
     # se repiten y si coinciden el nombre, la edad y la provincia.
+    contador_cedula = {}
+    contador = 0 
+    cedulas_repetidas = {}
+    for atencion in atenciones:
+        cedula = atencion.get("cedula", "")
+        contador_cedula[cedula] = contador_cedula.get(cedula, 0) + 1
+        contador += 1
+        if contador_cedula.get(cedula) > 1:
+            cedulas_repetidas[cedula] = cedulas_repetidas.get(cedula, 0) + 1   
 
-    # P10. Sume minutos_espera con un ciclo. Muestre el total y el promedio.
-    # Redacte un hallazgo que use el promedio y un conteo.
+  # P10. Sume minutos_espera con un ciclo. Muestre el total y el promedio.
+    # Redacte un hallazgo que use el promedio y un conteo.     
+    total = 0 
+    for atencion in atenciones:
+        minutos_espera = atencion.get("minutos_espera", "")
+        total += minutos_espera
+
+
+   
+    print("Cedulas de pacientes: ",contador_cedula)
+    print("Cantidad de pacientes por cedula: ",contador)
+    print("Las cedulas repetidas son: ", cedulas_repetidas.keys())
+    print("El total de minutos espera es: ",total)
+    print("El promedio de minutos espera es:  ",total / len(atenciones))
+
+    
 
 
 
